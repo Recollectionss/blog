@@ -1,5 +1,6 @@
 import {pool} from "../config/db";
 import bcrypt from "bcrypt";
+import {generateAccessToken} from "../utils/generateAccessToken";
 
 class AuthService {
     async login(username:string,password:string){
@@ -19,8 +20,20 @@ class AuthService {
 
         return user.rows[0];
     }
-    async refreshAccessToken(refreshToken){
+    async refreshAccessToken(refreshToken:string){
+        const query = `SELECT * FROM Users WHERE refresh_token = $1`;
+        const values = [refreshToken];
 
+        const user = await pool.query(query,values);
+
+        const userData = user.rows[0]
+
+        if(!userData){
+            throw new Error("Invalid refresh token");
+        }
+
+
+        return generateAccessToken(userData.id,userData.username);
     }
 }
 
