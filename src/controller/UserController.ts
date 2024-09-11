@@ -1,15 +1,13 @@
 import {UserInterface} from "../interfaces/UserInterface";
 import {Request,Response} from "express";
-import UserService from "../service/UserService";
 
-interface CreateUserRequest {
+export interface CreateUserRequest {
     user: UserInterface
 }
 class UserController {
-    async create (req: Request<{},{},CreateUserRequest>,res:Response){
-        const {user} = req.body;
-        await UserService.create(user);
-    }
+    async delete (req:Request,res:Response){}
+    async put (req:Request,res:Response){}
+    async patch (req:Request,res:Response){}
 }
 
 export default new UserController();
