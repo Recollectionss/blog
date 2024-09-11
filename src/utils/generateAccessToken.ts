@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-export const generateAccessToken = (id:string,username:string) =>{
+export const generateAccessToken = (id:number,username:string) =>{
     if(!process.env.ACCESS_TOKEN_SECRET){
         throw new Error("ACCESS_TOKEN_SECRET is not defined")
     }
